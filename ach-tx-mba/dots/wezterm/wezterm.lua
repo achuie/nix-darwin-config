@@ -142,6 +142,7 @@ local config = {
 
   window_background_opacity = 0.9,
   macos_window_background_blur = 20,
+  window_decorations = "TITLE | RESIZE | MACOS_FORCE_ENABLE_SHADOW",
 
   color_scheme = 'tokyo-night-storm',
   -- color_scheme = 'root-beer-float',

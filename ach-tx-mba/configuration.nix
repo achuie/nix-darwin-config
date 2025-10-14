@@ -1,4 +1,4 @@
-{ inputs }: { config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }@args:
 
 {
   environment.systemPackages =
@@ -7,6 +7,10 @@
 
   # Managed by determinate-nixd
   nix.enable = false;
+
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "claude-code"
+  ];
 
   users.users.achuie = {
     name = "achuie";
@@ -21,17 +25,22 @@
       # Only cli programs
       home = {
         packages = with pkgs; [
+          args.iosevka
+
           inputs.achuie-nvim.packages.${pkgs.system}.default
           tmux
+          claude-code
         ];
         file = {
           ".zsh/.zshrc".source = ./dots/zsh/zshrc;
           ".zsh/prompts".source = ./dots/zsh/prompts;
           ".zsh/functions/prompt_achuie_setup".source = ./dots/zsh/prompts/achuie.zsh;
+
+          ".claude/settings.json".source = ./dots/claude/settings.json;
+          ".claude/anthropic_key.sh".source = pkgs.writeShellScript "anthropic_key.sh" ''
+            cat ${config.age.secrets.anthropic-key.path}
+          '';
         };
-        activation.weztermTerminfo = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-          ${pkgs.ncurses}/bin/tic -x -o $HOME/.terminfo ${pkgs.wezterm.src}/termwiz/data/wezterm.terminfo
-        '';
       };
       xdg.configFile = {
         "tmux/tmux.conf".source = ./dots/tmux/tmux.conf;
@@ -65,7 +74,13 @@
     casks = [
       "aldente"
       "rectangle"
+      "middleclick"
+      # For slack notifications
+      "doll"
+
       "wezterm"
+      "firefox"
+      "slack"
     ];
   };
 

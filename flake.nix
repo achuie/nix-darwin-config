@@ -3,6 +3,9 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # For ragenix, see https://github.com/yaxitech/ragenix/issues/159
+    nixpkgs-2411.url = "github:nixos/nixpkgs/nixos-24.11";
+
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,17 +27,47 @@
       url = "github:achuie/config.nvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix = {
+      url = "github:yaxitech/ragenix";
+      inputs.nixpkgs.follows = "nixpkgs-2411";
+    };
   };
 
   outputs = { self, nix-darwin, nixpkgs, ... }@inputs:
+    let
+      iosevka-wl =
+        let
+          version = "v0.1.1";
+        in
+        nixpkgs.legacyPackages.aarch64-darwin.fetchzip {
+          inherit version;
+          pname = "iosevka-wl";
+          url = "https://github.com/achuie/iosevka-wl/releases/download/${version}/iosevka-wl-artifact.zip";
+          hash = "sha256-wWYAXV085qM5sKB+olfWyUkOxHEmGyKNSQFMuk4CUYg=";
+          stripRoot = false;
+        };
+    in
     {
       # Build darwin flake using:
-      # $ darwin-rebuild build --flake .#simple
+      # $ darwin-rebuild build --flake .#ach-tx-mba
       darwinConfigurations."ach-tx-mba" = nix-darwin.lib.darwinSystem {
+        specialArgs = {
+          inherit inputs;
+          iosevka = iosevka-wl;
+        };
         modules = [
-          (import ./ach-tx-mba/configuration.nix { inherit inputs; })
+          ./ach-tx-mba/configuration.nix
           inputs.nix-homebrew.darwinModules.nix-homebrew
           inputs.home-manager.darwinModules.default
+
+          inputs.agenix.darwinModules.default
+          {
+            age = {
+              identityPaths = [ "/Users/achuie/.ssh/id_ed25519" ];
+              secrets.anthropic-key.file = ./secrets/anthropic-key.age;
+            };
+          }
+          { environment.systemPackages = [ inputs.agenix.packages.aarch64-darwin.default ]; }
         ];
       };
     };

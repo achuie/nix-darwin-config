@@ -107,7 +107,6 @@ wezterm.on('edit-scrollback', function(window, pane)
 end)
 
 local config = {
-  term = 'wezterm',
   scrollback_lines = 10000,
   audible_bell = "Disabled",
   use_ime = false,
@@ -128,17 +127,17 @@ local config = {
     'Font Awesome 6 Free',
   },
   font_size = 12,
-  -- font_rules = {
-  --   {
-  --     italic = true,
-  --     font = wezterm.font('Iosevka Custom Extended', { italic = true }),
-  --   },
-  --   {
-  --     italic = true,
-  --     intensity = 'Bold',
-  --     font = wezterm.font('Iosevka Custom Extended', { italic = true }),
-  --   },
-  -- },
+  font_rules = {
+    {
+      intensity = 'Bold',
+      font = wezterm.font('Iosevka Whiteletter XBd Ex'),
+    },
+    {
+      italic = true,
+      intensity = 'Bold',
+      font = wezterm.font('Iosevka Whiteletter XBd Ex', { italic = true }),
+    },
+  },
 
   window_background_opacity = 0.9,
   macos_window_background_blur = 20,

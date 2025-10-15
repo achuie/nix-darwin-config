@@ -64,7 +64,12 @@
           {
             age = {
               identityPaths = [ "/Users/achuie/.ssh/id_ed25519" ];
-              secrets.anthropic-key.file = ./secrets/anthropic-key.age;
+              secrets.anthropic-key = {
+                file = ./secrets/anthropic-key.age;
+                mode = "770";
+                owner = "achuie";
+                group = "achuie";
+              };
             };
           }
           { environment.systemPackages = [ inputs.agenix.packages.aarch64-darwin.default ]; }

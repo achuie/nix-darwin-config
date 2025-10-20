@@ -28,8 +28,13 @@
           args.iosevka
 
           inputs.achuie-nvim.packages.${pkgs.system}.default
+          fd
+          ripgrep
+          skim
+
           tmux
           claude-code
+          azure-cli
         ];
         file = {
           ".zsh/.zshrc".source = ./dots/zsh/zshrc;

@@ -81,6 +81,7 @@
       "wezterm"
       "firefox"
       "slack"
+      "obsidian"
     ];
   };
 

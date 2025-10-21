@@ -77,7 +77,6 @@
     enable = true;
     taps = builtins.attrNames config.nix-homebrew.taps;
     casks = [
-      "aldente"
       "rectangle"
       "middleclick"
       # For slack notifications

@@ -31,8 +31,9 @@
           fd
           ripgrep
           skim
-
           tmux
+          rustup
+
           claude-code
           azure-cli
         ];

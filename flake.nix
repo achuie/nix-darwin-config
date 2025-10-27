@@ -37,13 +37,13 @@
     let
       iosevka-wl =
         let
-          version = "v0.1.1";
+          version = "v0.2.0";
         in
         nixpkgs.legacyPackages.aarch64-darwin.fetchzip {
           inherit version;
           pname = "iosevka-wl";
           url = "https://github.com/achuie/iosevka-wl/releases/download/${version}/iosevka-wl-artifact.zip";
-          hash = "sha256-wWYAXV085qM5sKB+olfWyUkOxHEmGyKNSQFMuk4CUYg=";
+          hash = "sha256-TeOP1D8J9MrcvCLQx9D2gjokZaALRim+NVUHUOGYFAA=";
           stripRoot = false;
         };
     in

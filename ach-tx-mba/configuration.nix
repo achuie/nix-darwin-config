@@ -10,6 +10,8 @@
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "claude-code"
+    "vscode"
+    "vscode-extension-ms-vscode-remote-vscode-remote-extensionpack"
   ];
 
   users.users.achuie = {
@@ -57,6 +59,13 @@
         zsh = {
           enable = true;
           envExtra = builtins.readFile ./dots/zsh/zshenv;
+        };
+        vscode = {
+          enable = true;
+          profiles.default.extensions = with pkgs.vscode-extensions; [
+            vscodevim.vim
+            ms-vscode-remote.vscode-remote-extensionpack
+          ];
         };
       };
 

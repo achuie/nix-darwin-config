@@ -18,7 +18,7 @@ unsetopt notify
 
 ## Path
 typeset -U PATH path FPATH fpath
-path=("$HOME/scripts" "$path[@]")
+path=("$HOME/scripts" "$HOME/.cargo/bin" "$path[@]")
 export PATH
 
 fpath=("$ZDOTDIR/functions" "$fpath[@]")

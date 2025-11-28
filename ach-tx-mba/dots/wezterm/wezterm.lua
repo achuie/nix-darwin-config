@@ -217,13 +217,13 @@ local config = {
   -- Override default table to confirm for everything besides shells I use
   skip_close_confirmation_for_processes_named = { 'zsh', 'bash' },
 
-  leader = { key = 'a', mods = 'CTRL|SHIFT', timeout_milliseconds = 2000 },
+  leader = { key = 'A', mods = 'CTRL|SHIFT', timeout_milliseconds = 2000 },
   keys = {
     { key = 'e',     mods = 'CTRL|SHIFT',        action = wact.EmitEvent 'toggle-ligature' },
     { key = 'y',     mods = 'CTRL|SHIFT',        action = wact.EmitEvent 'edit-scrollback' },
 
     -- Send literal leader when pressed twice
-    { key = 'a',     mods = 'LEADER|CTRL|SHIFT', action = wact.SendKey { key = 'a', mods = 'CTRL|SHIFT' } },
+    { key = 'A',     mods = 'LEADER|CTRL|SHIFT', action = wact.SendKey { key = 'A', mods = 'CTRL|SHIFT' } },
     -- Spawn new terminal with the same working directory
     { key = 'Enter', mods = 'SHIFT|CTRL',  action = wact.SpawnWindow, },
 
@@ -330,7 +330,7 @@ local dirArrows = { 'LeftArrow', 'DownArrow', 'UpArrow', 'RightArrow' }
 for i = 1, #dirKeys do
   -- Move focus
   table.insert(config.keys, { key = dirKeys[i], mods = 'LEADER', action = wact.ActivatePaneDirection(dirNames[i]) })
-  -- table.insert(config.keys, { key = dirKeys[i], mods = 'ALT', action = wact.ActivatePaneDirection(dirNames[i]) })
+  table.insert(config.keys, { key = dirKeys[i], mods = 'ALT', action = wact.ActivatePaneDirection(dirNames[i]) })
   -- Resize pane
   table.insert(config.keys,
     { key = dirArrows[i], mods = 'LEADER|CTRL', action = wact.AdjustPaneSize { dirNames[i], 5 } })

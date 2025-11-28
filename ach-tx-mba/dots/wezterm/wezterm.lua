@@ -40,12 +40,14 @@ end)
 wezterm.on('toggle-tmux-compatibility', function(window, pane)
   local overrides = window:get_config_overrides() or {}
   local dirKeys = { 'h', 'j', 'k', 'l' }
+  local dirNames = { 'Left', 'Down', 'Up', 'Right' }
 
   if not overrides.leader then
     overrides.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 2000 }
     overrides.keys = { { key = 'a', mods = 'LEADER|CTRL', action = wact.SendKey { key = 'a', mods = 'CTRL' } } }
     for i = 1, #dirKeys do
-      table.insert(overrides.keys, { key = dirKeys[i], mods = 'ALT', action = wact.SendKey { key = dirKeys[i], mods = 'ALT' } })
+      -- table.insert(overrides.keys, { key = dirKeys[i], mods = 'ALT', action = wact.SendKey { key = dirKeys[i], mods = 'ALT' } })
+      table.insert(overrides.keys, { key = dirKeys[i], mods = 'ALT', action = wact.ActivatePaneDirection(dirNames[i]) })
     end
   else
     overrides.leader = nil
@@ -330,7 +332,7 @@ local dirArrows = { 'LeftArrow', 'DownArrow', 'UpArrow', 'RightArrow' }
 for i = 1, #dirKeys do
   -- Move focus
   table.insert(config.keys, { key = dirKeys[i], mods = 'LEADER', action = wact.ActivatePaneDirection(dirNames[i]) })
-  table.insert(config.keys, { key = dirKeys[i], mods = 'ALT', action = wact.ActivatePaneDirection(dirNames[i]) })
+  -- table.insert(config.keys, { key = dirKeys[i], mods = 'ALT', action = wact.ActivatePaneDirection(dirNames[i]) })
   -- Resize pane
   table.insert(config.keys,
     { key = dirArrows[i], mods = 'LEADER|CTRL', action = wact.AdjustPaneSize { dirNames[i], 5 } })

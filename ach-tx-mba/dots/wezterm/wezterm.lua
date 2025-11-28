@@ -66,7 +66,7 @@ wezterm.on('format-window-title', function(tab, pane, tabs, panes, config)
   end
 
   local tmux_compat = ''
-  if config.leader.key ~= 'mapped:`' then
+  if config.leader.mods ~= 'SHIFT|CTRL' then
     tmux_compat = '[W] '
   end
 
@@ -214,16 +214,16 @@ local config = {
 
   unix_domains = { { name = 'unix' } },
 
-  -- Override default table to always confirm
+  -- Override default table to confirm for everything besides shells I use
   skip_close_confirmation_for_processes_named = { 'zsh', 'bash' },
 
-  leader = { key = '`', mods = 'CTRL', timeout_milliseconds = 2000 },
+  leader = { key = 'a', mods = 'CTRL|SHIFT', timeout_milliseconds = 2000 },
   keys = {
     { key = 'e',     mods = 'CTRL|SHIFT',        action = wact.EmitEvent 'toggle-ligature' },
     { key = 'y',     mods = 'CTRL|SHIFT',        action = wact.EmitEvent 'edit-scrollback' },
 
-    -- Send "CTRL-`" to the terminal when pressing CTRL-`, CTRL-`
-    { key = '`',     mods = 'LEADER|CTRL', action = wact.SendKey { key = '`', mods = 'CTRL' } },
+    -- Send literal leader when pressed twice
+    { key = 'a',     mods = 'LEADER|CTRL|SHIFT', action = wact.SendKey { key = 'a', mods = 'CTRL|SHIFT' } },
     -- Spawn new terminal with the same working directory
     { key = 'Enter', mods = 'SHIFT|CTRL',  action = wact.SpawnWindow, },
 

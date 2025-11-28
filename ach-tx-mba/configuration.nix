@@ -44,6 +44,8 @@
           ".zsh/prompts".source = ./dots/zsh/prompts;
           ".zsh/functions/prompt_achuie_setup".source = ./dots/zsh/prompts/achuie.zsh;
 
+          ".wezterm.lua".source = ./dots/wezterm/wezterm.lua;
+
           ".claude/settings.json".source = ./dots/claude/settings.json;
           ".claude/anthropic_key.sh".source = pkgs.writeShellScript "anthropic_key.sh" ''
             cat ${config.age.secrets.anthropic-key.path}
@@ -52,7 +54,7 @@
       };
       xdg.configFile = {
         "tmux/tmux.conf".source = ./dots/tmux/tmux.conf;
-        "wezterm/wezterm.lua".source = ./dots/wezterm/wezterm.lua;
+        # "wezterm/wezterm.lua".source = ./dots/wezterm/wezterm.lua;
       };
       programs = {
         home-manager.enable = true;

@@ -35,6 +35,7 @@
           skim
           tmux
           rustup
+          picocom
 
           claude-code
           azure-cli

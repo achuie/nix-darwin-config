@@ -39,6 +39,7 @@
 
           claude-code
           azure-cli
+          ansible_2_17
         ];
         file = {
           ".zsh/.zshrc".source = ./dots/zsh/zshrc;

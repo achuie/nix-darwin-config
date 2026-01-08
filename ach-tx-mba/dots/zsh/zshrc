@@ -30,6 +30,9 @@ export FPATH
 ## uv
 source $HOME/.local/bin/env
 
+## git worktree helper
+[ -f $HOME/scripts/gwt ] && source <(gwt shellenv)
+
 ## Environment
 # For ICC color correction with swaywm
 export WLR_RENDERER=vulkan

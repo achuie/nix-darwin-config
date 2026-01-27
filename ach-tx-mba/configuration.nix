@@ -40,6 +40,7 @@
           claude-code
           azure-cli
           ansible_2_17
+          ansible-lint
         ];
         file = {
           ".zsh/.zshrc".source = ./dots/zsh/zshrc;

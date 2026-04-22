@@ -41,7 +41,7 @@
           claude-code
           azure-cli
           azure-functions-core-tools
-          ansible_2_17
+          ansible
           ansible-lint
         ];
         file = {

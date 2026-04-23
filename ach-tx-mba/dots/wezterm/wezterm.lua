@@ -22,9 +22,9 @@ wezterm.on('augment-command-palette', function(window, pane)
       icon = 'md_rename_box',
       action = wact.PromptInputLine {
         description = 'Enter new name for active workspace',
-        action = wezterm.action_callback(function(bwindow, bpane, line)
-          if line then
-            wezterm.mux.rename_workspace(wezterm.mux.get_active_workspace(), line)
+        action = wezterm.action_callback(function(bwindow, bpane, bline)
+          if bline then
+            wezterm.mux.rename_workspace(wezterm.mux.get_active_workspace(), bline)
           end
         end),
       },
@@ -33,6 +33,21 @@ wezterm.on('augment-command-palette', function(window, pane)
       brief = 'Toggle tmux compatibility mode',
       icon = 'fa_toggle_on',
       action = wact.EmitEvent 'toggle-tmux-compatibility',
+    },
+    {
+      brief = 'Toggle light/dark color scheme',
+      icon = 'fa_toggle_on',
+      action = wezterm.action_callback(function(cwindow, cpane, cline)
+        local overrides = cwindow:get_config_overrides() or {}
+
+        if overrides.color_scheme == 'tokyo-night-storm' then
+          overrides.color_scheme = 'tokyo-day-storm'
+        else
+          overrides.color_scheme = 'tokyo-night-storm'
+        end
+
+        cwindow:set_config_overrides(overrides)
+      end),
     },
   }
 end)
@@ -108,6 +123,23 @@ wezterm.on('edit-scrollback', function(window, pane)
   os.remove(filename)
 end)
 
+
+function Get_appearance()
+  if wezterm.gui then
+    return wezterm.gui.get_appearance()
+  end
+  return 'Dark'
+end
+
+function Scheme_for_appearance(appearance)
+  if appearance:find 'Dark' then
+    return 'tokyo-night-storm'
+  else
+    return 'tokyo-day-storm'
+  end
+end
+
+
 local config = {
   scrollback_lines = 10000,
   audible_bell = "Disabled",
@@ -145,7 +177,7 @@ local config = {
   macos_window_background_blur = 20,
   window_decorations = "TITLE | RESIZE | MACOS_FORCE_ENABLE_SHADOW",
 
-  color_scheme = 'tokyo-night-storm',
+  color_scheme = Scheme_for_appearance(Get_appearance()),
   -- color_scheme = 'root-beer-float',
   color_schemes = {
     ['tokyo-night-storm'] = {
@@ -174,6 +206,34 @@ local config = {
         '#bb9af7',
         '#7dcfff',
         '#cbcff5',
+      },
+    },
+    ['tokyo-day-storm'] = {
+      foreground = "#202940",
+      background = "#e0dfde",
+      cursor_fg = "#e0dfde",
+      cursor_bg = "#403520",
+      cursor_border = "#403520",
+      selection_bg = "#8fa3cc",
+      ansi = {
+        "#ebedff",
+        "#b3243e",
+        "#48800d",
+        "#cc6529",
+        "#4d71bf",
+        "#7a52cc",
+        "#2990cc",
+        "#313d59"
+      },
+      brights = {
+        "#f2f5ff",
+        "#cc0025",
+        "#6d993d",
+        "#d99836",
+        "#6c8fd9",
+        "#926cd9",
+        "#57a9d9",
+        "#8f9abf"
       },
     },
     ['root-beer-float'] = {

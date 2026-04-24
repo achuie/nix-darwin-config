@@ -209,14 +209,14 @@ local config = {
       },
     },
     ['tokyo-day-storm'] = {
-      foreground = "#202940",
-      background = "#e0dfde",
-      cursor_fg = "#e0dfde",
+      foreground = "#000e33",
+      background = "#e0e0e0",
+      cursor_fg = "#e0e0e0",
       cursor_bg = "#403520",
       cursor_border = "#403520",
       selection_bg = "#8fa3cc",
       ansi = {
-        "#ebedff",
+        "#d3d5e6",
         "#b3243e",
         "#48800d",
         "#cc6529",
@@ -226,14 +226,14 @@ local config = {
         "#313d59"
       },
       brights = {
-        "#f2f5ff",
+        "#fafbff",
         "#cc0025",
         "#6d993d",
         "#d99836",
         "#6c8fd9",
         "#926cd9",
         "#57a9d9",
-        "#8f9abf"
+        "#99a5cc"
       },
     },
     ['root-beer-float'] = {

@@ -210,10 +210,9 @@ local config = {
     },
     ['tokyo-day-storm'] = {
       foreground = "#000e33",
-      background = "#e0e0e0",
-      cursor_fg = "#e0e0e0",
+      background = "#dfe3e6",
+      cursor_fg = "#dfe3e6",
       cursor_bg = "#403520",
-      cursor_border = "#403520",
       selection_bg = "#8fa3cc",
       ansi = {
         "#d3d5e6",
@@ -226,7 +225,7 @@ local config = {
         "#313d59"
       },
       brights = {
-        "#fafbff",
+        "#fffdfa",
         "#cc0025",
         "#6d993d",
         "#d99836",

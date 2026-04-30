@@ -212,7 +212,7 @@ local config = {
       foreground = "#000e33",
       background = "#e1e2e7",
       cursor_fg = "#e1e2e7",
-      cursor_bg = "#403520",
+      cursor_bg = "#803900",
       selection_bg = "#8fa3cc",
       ansi = {
         "#d3d5e6",

@@ -210,8 +210,8 @@ local config = {
     },
     ['tokyo-day-storm'] = {
       foreground = "#000e33",
-      background = "#dfe3e6",
-      cursor_fg = "#dfe3e6",
+      background = "#e1e2e7",
+      cursor_fg = "#e1e2e7",
       cursor_bg = "#403520",
       selection_bg = "#8fa3cc",
       ansi = {

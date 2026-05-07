@@ -3,6 +3,23 @@ local io = require 'io'
 local os = require 'os'
 local wact = wezterm.action
 
+
+function Get_appearance()
+  if wezterm.gui then
+    return wezterm.gui.get_appearance()
+  end
+  return 'Dark'
+end
+
+function Scheme_for_appearance(appearance)
+  if appearance:find 'Dark' then
+    return 'ach-terafox'
+  else
+    return 'ach-dayfox'
+  end
+end
+
+
 wezterm.on('augment-command-palette', function(window, pane)
   return {
     {
@@ -37,17 +54,7 @@ wezterm.on('augment-command-palette', function(window, pane)
     {
       brief = 'Toggle light/dark color scheme',
       icon = 'fa_toggle_on',
-      action = wezterm.action_callback(function(cwindow, cpane, cline)
-        local overrides = cwindow:get_config_overrides() or {}
-
-        if overrides.color_scheme == 'tokyo-night-storm' then
-          overrides.color_scheme = 'tokyo-day-storm'
-        else
-          overrides.color_scheme = 'tokyo-night-storm'
-        end
-
-        cwindow:set_config_overrides(overrides)
-      end),
+      action = wact.EmitEvent 'toggle-colorscheme',
     },
   }
 end)
@@ -68,6 +75,22 @@ wezterm.on('toggle-tmux-compatibility', function(window, pane)
     overrides.leader = nil
     overrides.keys = nil
   end
+  window:set_config_overrides(overrides)
+end)
+
+wezterm.on('toggle-colorscheme', function(window, pane)
+  local overrides = window:get_config_overrides() or {}
+
+  if not overrides.color_scheme then
+    if Get_appearance():find 'Dark' then
+      overrides.color_scheme = Scheme_for_appearance('Light')
+    else
+      overrides.color_scheme = Scheme_for_appearance('Dark')
+    end
+  else
+    overrides.color_scheme = nil
+  end
+
   window:set_config_overrides(overrides)
 end)
 
@@ -122,22 +145,6 @@ wezterm.on('edit-scrollback', function(window, pane)
   wezterm.sleep_ms(2000)
   os.remove(filename)
 end)
-
-
-function Get_appearance()
-  if wezterm.gui then
-    return wezterm.gui.get_appearance()
-  end
-  return 'Dark'
-end
-
-function Scheme_for_appearance(appearance)
-  if appearance:find 'Dark' then
-    return 'ach-terafox'
-  else
-    return 'ach-dayfox'
-  end
-end
 
 
 local config = {

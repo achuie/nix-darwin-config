@@ -13,7 +13,7 @@ end
 
 function Scheme_for_appearance(appearance)
   if appearance:find 'Dark' then
-    return 'ach-terafox'
+    return 'ach-duskfox'
   else
     return 'ach-dayfox'
   end
@@ -82,11 +82,7 @@ wezterm.on('toggle-colorscheme', function(window, pane)
   local overrides = window:get_config_overrides() or {}
 
   if not overrides.color_scheme then
-    if Get_appearance():find 'Dark' then
-      overrides.color_scheme = Scheme_for_appearance('Light')
-    else
-      overrides.color_scheme = Scheme_for_appearance('Dark')
-    end
+    overrides.color_scheme = Scheme_for_appearance('Light')
   else
     overrides.color_scheme = nil
   end
@@ -184,9 +180,91 @@ local config = {
   macos_window_background_blur = 20,
   window_decorations = "TITLE | RESIZE | MACOS_FORCE_ENABLE_SHADOW",
 
-  color_scheme = Scheme_for_appearance(Get_appearance()),
+  color_scheme = Scheme_for_appearance('Dark'),
   -- color_scheme = 'root-beer-float',
   color_schemes = {
+    ['ach-duskfox'] = {
+      foreground = "#e0def4",
+      background = "#232136",
+      cursor_bg = '#ffe8d5',
+      cursor_border = '#ffe8d5',
+      cursor_fg = "#232136",
+      compose_cursor = '#ea9a97',
+      selection_bg = "#433c59",
+      selection_fg = "#e0def4",
+      scrollbar_thumb = "#6e6a86",
+      split = "#191726",
+      visual_bell = "#e0def4",
+      ansi = {
+        "#393552",
+        "#eb6f92",
+        "#a3be8c",
+        "#f6c177",
+        "#569fba",
+        "#c4a7e7",
+        "#9ccfd8",
+        "#e0def4",
+      },
+      brights = {
+        "#47407d",
+        "#f083a2",
+        "#b1d196",
+        "#f9cb8c",
+        "#65b1cd",
+        "#ccb1ed",
+        "#a6dae3",
+        "#e2e0f7",
+      },
+      indexed = {
+        [16] = "#eb98c3",
+        [17] = "#ea9a97",
+      },
+      tab_bar = {
+        background = "#191726",
+        inactive_tab_edge = "#191726",
+        inactive_tab_edge_hover = "#2d2a45",
+        active_tab = {
+          bg_color = "#6e6a86",
+          fg_color = "#232136",
+          intensity = "Normal",
+          italic = false,
+          strikethrough = false,
+          underline = "None",
+        },
+        inactive_tab = {
+          bg_color = "#2d2a45",
+          fg_color = "#cdcbe0",
+          intensity = "Normal",
+          italic = false,
+          strikethrough = false,
+          underline = "None",
+        },
+        inactive_tab_hover = {
+          bg_color = "#373354",
+          fg_color = "#e0def4",
+          intensity = "Normal",
+          italic = false,
+          strikethrough = false,
+          underline = "None",
+        },
+        new_tab = {
+          bg_color = "#232136",
+          fg_color = "#cdcbe0",
+          intensity = "Normal",
+          italic = false,
+          strikethrough = false,
+          underline = "None",
+        },
+        new_tab_hover = {
+          bg_color = "#373354",
+          fg_color = "#e0def4",
+          intensity = "Normal",
+          italic = false,
+          strikethrough = false,
+          underline = "None",
+        },
+      },
+    },
     ['ach-terafox'] = {
       foreground = "#e6eaea";
       background = "#152528";

@@ -360,7 +360,7 @@ local config = {
       split = "#e4dcd4",
       visual_bell = "#3d2b5a",
       ansi = {
-        "#f2e9e1",
+        "#ccc4be",
         "#a5222f",
         "#396847",
         "#ac5402",
@@ -370,7 +370,7 @@ local config = {
         "#352c24"
       },
       brights = {
-        "#f4ece6",
+        "#d9d2cc",
         "#b3434e",
         "#577f63",
         "#b86e28",

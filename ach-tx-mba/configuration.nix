@@ -103,10 +103,13 @@
 
       "wezterm"
       "firefox"
+      "ungoogled-chromium"
       "slack"
       "obsidian"
     ];
   };
+
+  services.tailscale.enable = true;
 
   # Set Git commit hash for darwin-version.
   system.configurationRevision = config.rev or config.dirtyRev or null;

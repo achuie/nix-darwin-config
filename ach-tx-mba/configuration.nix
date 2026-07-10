@@ -37,6 +37,7 @@
           rustup
           picocom
           git-lfs
+          gh
 
           claude-code
           azure-cli

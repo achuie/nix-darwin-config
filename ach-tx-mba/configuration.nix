@@ -63,6 +63,7 @@
       xdg.configFile = {
         "tmux/tmux.conf".source = ./dots/tmux/tmux.conf;
         # "wezterm/wezterm.lua".source = ./dots/wezterm/wezterm.lua;
+        "ghostty/config".source = ./dots/ghostty/config;
       };
       programs = {
         home-manager.enable = true;
@@ -103,6 +104,7 @@
       "doll"
 
       "wezterm"
+      "ghostty"
       "firefox"
       "ungoogled-chromium"
       "slack"

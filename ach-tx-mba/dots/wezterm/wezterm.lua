@@ -215,10 +215,6 @@ local config = {
         '#7dcfff',
         "#e4e4e5"
       },
-      indexed = {
-        [16] = "#d67ad2",
-        [17] = "#f4a261",
-      },
       tab_bar = {
         background = "#131a24",
         inactive_tab_edge = "#131a24",
@@ -297,10 +293,6 @@ local config = {
         "#afd4de",
         "#eeeeee",
       },
-      indexed = {
-        [16] = "#cb7985",
-        [17] = "#ff8349",
-      },
       tab_bar = {
         background = "#0f1c1e",
         inactive_tab_edge = "#0f1c1e",
@@ -378,10 +370,6 @@ local config = {
         "#8452d5",
         "#488d93",
         "#534c45"
-      },
-      indexed = {
-        [16] = "#a440b5",
-        [17] = "#955f61",
       },
       tab_bar = {
         background = "#e4dcd4",

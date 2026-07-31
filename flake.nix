@@ -1,5 +1,5 @@
 {
-  description = "Configs for darwin";
+  description = "Configs for TX machines for which achuie is the primary user";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -73,6 +73,15 @@
             };
           }
           { environment.systemPackages = [ inputs.agenix.packages.aarch64-darwin.default ]; }
+        ];
+      };
+
+      nixosConfigurations.florisuga = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit (self) inputs; };
+        modules = [
+          ./florisuga/configuration.nix
+          inputs.agenix.nixosModules.default
         ];
       };
     };

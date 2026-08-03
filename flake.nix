@@ -82,6 +82,17 @@
         modules = [
           ./florisuga/configuration.nix
           inputs.agenix.nixosModules.default
+          {
+            age = {
+              identityPaths = [ "/Users/achuie/.ssh/id_ed25519" ];
+              secrets.anthropic-key = {
+                file = ./secrets/anthropic-key.age;
+                mode = "770";
+                owner = "achuie";
+                group = "achuie";
+              };
+            };
+          }
         ];
       };
     };

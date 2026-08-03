@@ -81,6 +81,7 @@
         specialArgs = { inherit (self) inputs; };
         modules = [
           ./florisuga/configuration.nix
+          inputs.home-manager.nixosModules.default
           inputs.agenix.nixosModules.default
           {
             age.secrets.anthropic-key = {

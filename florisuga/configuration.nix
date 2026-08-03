@@ -70,6 +70,60 @@
     ];
     shell = pkgs.zsh;
   };
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "backup";
+    users.achuie = { pkgs, lib, ... }: {
+      # Only cli programs
+      home = {
+        packages = with pkgs; [
+          inputs.achuie-nvim.packages.${pkgs.system}.default
+          tmux
+          git-lfs
+          gh
+
+          claude-code
+          azure-cli
+          azure-functions-core-tools
+          ansible
+          ansible-lint
+        ];
+        file = {
+          ".zsh/.zshrc".source = ../ach-tx-mba/dots/zsh/zshrc;
+          ".zsh/prompts".source = ../ach-tx-mba/dots/zsh/prompts;
+          ".zsh/functions/prompt_achuie_setup".source = ../ach-tx-mba/dots/zsh/prompts/achuie.zsh;
+
+          "scripts/gwt".source = ../ach-tx-mba/scripts/gwt;
+
+          ".claude/settings.json".source = ../ach-tx-mba/dots/claude/settings.json;
+          ".claude/anthropic_key.sh".source = pkgs.writeShellScript "anthropic_key.sh" ''
+            cat ${config.age.secrets.anthropic-key.path}
+          '';
+        };
+      };
+      xdg.configFile = {
+        "tmux/tmux.conf".source = ../ach-tx-mba/dots/tmux/tmux.conf;
+        # "wezterm/wezterm.lua".source = ./dots/wezterm/wezterm.lua;
+      };
+      programs = {
+        home-manager.enable = true;
+        zsh = {
+          enable = true;
+          envExtra = builtins.readFile ../ach-tx-mba/dots/zsh/zshenv;
+        };
+        vscode = {
+          enable = true;
+          profiles.default.extensions = with pkgs.vscode-extensions; [
+            vscodevim.vim
+            ms-vscode-remote.vscode-remote-extensionpack
+          ];
+        };
+      };
+
+      home.stateVersion = "25.05";
+    };
+  };
 
   # programs.firefox.enable = true;
   programs.zsh.enable = true;

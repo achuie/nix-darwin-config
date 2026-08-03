@@ -84,6 +84,7 @@
           git-lfs
           gh
           uv
+          python312
 
           claude-code
           azure-cli

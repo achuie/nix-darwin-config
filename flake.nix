@@ -87,9 +87,9 @@
               identityPaths = [ "/Users/achuie/.ssh/id_ed25519" ];
               secrets.anthropic-key = {
                 file = ./secrets/anthropic-key.age;
-                mode = "770";
+                mode = "700";
                 owner = "achuie";
-                group = "achuie";
+                group = "users";
               };
             };
           }

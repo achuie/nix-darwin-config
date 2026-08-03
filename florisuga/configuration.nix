@@ -79,6 +79,7 @@
       home = {
         packages = with pkgs; [
           inputs.achuie-nvim.packages.${pkgs.system}.default
+          ripgrep
           tmux
           git-lfs
           gh

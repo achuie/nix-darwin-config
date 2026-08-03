@@ -83,6 +83,7 @@
           tmux
           git-lfs
           gh
+          pre-commit
 
           claude-code
           azure-cli

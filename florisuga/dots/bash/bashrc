@@ -1,0 +1,44 @@
+# Interactive bash setup for florisuga. Read from ~/.bashrc via home-manager's
+# programs.bash.initExtra, i.e. after /etc/bashrc has set up the default NixOS
+# prompt, completion and ls colours.
+
+## Prompt
+# Branch of the repo containing $PWD, in the " (branch)" shape zsh's vcs_info
+# used. Builtins only, so no process is forked per prompt.
+__git_branch() {
+    local dir="$PWD" gitdir head marker path
+
+    while [[ -n $dir ]]; do
+        if [[ -e $dir/.git ]]; then
+            gitdir="$dir/.git"
+            break
+        fi
+        dir="${dir%/*}"
+    done
+    [[ -n $gitdir ]] || return 0
+
+    # In a linked worktree (gwt) or submodule, .git is a file: "gitdir: <path>".
+    if [[ -f $gitdir ]]; then
+        read -r marker path < "$gitdir" || return 0
+        [[ $path == /* ]] || path="$dir/$path"
+        gitdir="$path"
+    fi
+
+    read -r head 2>/dev/null < "$gitdir/HEAD" || return 0
+    if [[ $head == ref:* ]]; then
+        printf ' (%s)' "${head#ref: refs/heads/}"
+    else
+        # Detached HEAD; abbreviated commit, as vcs_info showed.
+        printf ' (%.7s)' "$head"
+    fi
+}
+
+# NixOS's default prompt (programs.bash.promptInit) with the branch appended.
+# Single-quoted so $(__git_branch) is re-evaluated at each prompt.
+if [ "$TERM" != "dumb" ]; then
+    PS1='\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w$(__git_branch)]\$\[\033[0m\] '
+fi
+
+## git worktree helper
+# Absolute path: ~/scripts is only on PATH once ~/.profile has run.
+[ -f "$HOME/scripts/gwt" ] && source <("$HOME/scripts/gwt" shellenv)

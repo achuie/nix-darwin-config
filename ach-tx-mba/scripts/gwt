@@ -78,7 +78,6 @@ get_pr_number() {
     fi
 }
 
-repo=$(get_repo_name)
 command="$1"
 shift
 
@@ -161,7 +160,7 @@ EOF
 
     checkout|co)
         branch="${1:?Branch name required. Usage: gwt checkout <branch>}"
-        path="$WORKTREE_ROOT/$repo/$branch"
+        path="$WORKTREE_ROOT/$(get_repo_name)/$branch"
 
         # Check if worktree already exists
         if git worktree list | grep -q "\[$branch\]"; then
@@ -187,7 +186,7 @@ EOF
     create)
         branch="${1:?Branch name required. Usage: gwt create <branch> [base-branch]}"
         base="${2:-$(get_default_base)}"
-        path="$WORKTREE_ROOT/$repo/$branch"
+        path="$WORKTREE_ROOT/$(get_repo_name)/$branch"
 
         # Check if worktree already exists
         if git worktree list | grep -q "\[$branch\]"; then
@@ -215,7 +214,7 @@ EOF
 
         # Use gh to checkout PR in a worktree
         branch="pr-$pr_number"
-        path="$WORKTREE_ROOT/$repo/$branch"
+        path="$WORKTREE_ROOT/$(get_repo_name)/$branch"
 
         # Check if worktree already exists
         if git worktree list | grep -q "\[$branch\]"; then

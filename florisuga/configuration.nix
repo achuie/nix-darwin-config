@@ -68,7 +68,7 @@
     packages = with pkgs; [
       tree
     ];
-    shell = pkgs.zsh;
+    shell = pkgs.bashInteractive;
   };
   home-manager = {
     useGlobalPkgs = true;
@@ -93,16 +93,21 @@
           ansible-lint
         ];
         file = {
-          ".zsh/.zshrc".source = ../ach-tx-mba/dots/zsh/zshrc;
-          ".zsh/prompts".source = ../ach-tx-mba/dots/zsh/prompts;
-          ".zsh/functions/prompt_achuie_setup".source = ../ach-tx-mba/dots/zsh/prompts/achuie.zsh;
-
           "scripts/gwt".source = ../ach-tx-mba/scripts/gwt;
 
           ".claude/settings.json".source = ../ach-tx-mba/dots/claude/settings.json;
           ".claude/anthropic_key.sh".source = pkgs.writeShellScript "anthropic_key.sh" ''
             cat ${config.age.secrets.anthropic-key.path}
           '';
+        };
+        sessionPath = [ "$HOME/scripts" "$HOME/.cargo/bin" ];
+        sessionVariables = {
+          EDITOR = "vim";
+          VISUAL = "vim";
+        };
+        shellAliases = {
+          git-log = "git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %Cgreen(%cr) %C(bold blue)<%an>%Creset %<(50,trunc)%s' --all";
+          git-vlog = "git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %Cgreen%aD%Creset%n          %C(bold blue)<%an>%Creset %<(80,trunc)%s' --all";
         };
       };
       xdg.configFile = {
@@ -111,9 +116,9 @@
       };
       programs = {
         home-manager.enable = true;
-        zsh = {
+        bash = {
           enable = true;
-          envExtra = builtins.readFile ../ach-tx-mba/dots/zsh/zshenv;
+          initExtra = builtins.readFile ./dots/bash/bashrc;
         };
         vscode = {
           enable = true;
@@ -129,7 +134,6 @@
   };
 
   # programs.firefox.enable = true;
-  programs.zsh.enable = true;
 
   nix = {
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;

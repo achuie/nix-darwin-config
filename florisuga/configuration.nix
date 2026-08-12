@@ -133,6 +133,7 @@
           profiles.default.extensions = with pkgs.vscode-extensions; [
             vscodevim.vim
             ms-vscode-remote.vscode-remote-extensionpack
+            saoudrizwan.claude-dev
           ];
         };
       };
@@ -156,6 +157,7 @@
     "claude-code"
     "vscode"
     "vscode-extension-ms-vscode-remote-vscode-remote-extensionpack"
+    "vscode-extensions-saoudrizwan-claude-dev"
   ];
 
   # List packages installed in system profile.

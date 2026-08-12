@@ -36,7 +36,7 @@ __git_branch() {
 # NixOS's default green, truncated path, with the branch appended.
 # Single-quoted so $(__git_branch) is re-evaluated at each prompt.
 if [ "$TERM" != "dumb" ]; then
-    PS1='\n\[\033[1;32m\][\[\e]0;\u@\h: \W\a\]\u@\h:\w$(__git_branch)]\$\[\033[0m\] '
+    PS1='\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\W$(__git_branch)]\$\[\033[0m\] '
 fi
 
 ## git worktree helper

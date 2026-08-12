@@ -121,10 +121,13 @@
           enable = true;
           initExtra = builtins.readFile ./dots/bash/bashrc;
         };
-        readline.extraConfig = ''
-          bind '"\e[A": history-search-backward'
-          bind '"\e[B": history-search-forward'
-        '';
+        readline = {
+          enable = true;
+          extraConfig = ''
+            bind '"\e[A": history-search-backward'
+            bind '"\e[B": history-search-forward'
+          '';
+        };
         vscode = {
           enable = true;
           profiles.default.extensions = with pkgs.vscode-extensions; [

@@ -114,6 +114,7 @@
       xdg.configFile = {
         "tmux/tmux.conf".source = ../ach-tx-mba/dots/tmux/tmux.conf;
         # "wezterm/wezterm.lua".source = ./dots/wezterm/wezterm.lua;
+        "code-server/config.yaml".source = ./dots/code-server/config.yaml;
       };
       programs = {
         home-manager.enable = true;
@@ -191,6 +192,15 @@
   services.openssh.enable = true;
 
   services.tailscale.enable = true;
+
+  services.caddy = {
+    enable = true;
+    virtualHosts = {
+      "florisuga".extraConfig = ''
+        reverse_proxy 127.0.0.1:5092
+        '';
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

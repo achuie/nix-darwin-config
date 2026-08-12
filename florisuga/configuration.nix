@@ -196,7 +196,7 @@
   services.caddy = {
     enable = true;
     virtualHosts = {
-      "florisuga:8080".extraConfig = ''
+      "http://100.64.1.162:5432".extraConfig = ''
         reverse_proxy 127.0.0.1:5092
         '';
     };

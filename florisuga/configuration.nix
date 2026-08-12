@@ -123,10 +123,10 @@
         };
         readline = {
           enable = true;
-          extraConfig = ''
-            bind '"\e[A": history-search-backward'
-            bind '"\e[B": history-search-forward'
-          '';
+          bindings = {
+            "\\e[A" = "history-search-backward";
+            "\\e[B" = "history-search-forward";
+          };
         };
         vscode = {
           enable = true;

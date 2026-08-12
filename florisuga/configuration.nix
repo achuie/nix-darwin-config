@@ -86,6 +86,7 @@
           uv
           python312
 
+          code-server
           claude-code
           azure-cli
           azure-functions-core-tools
@@ -119,6 +120,10 @@
         bash = {
           enable = true;
           initExtra = builtins.readFile ./dots/bash/bashrc;
+          interactiveShellInit = ''
+            bind '"\e[A": history-search-backward'
+            bind '"\e[B": history-search-forward'
+          '';
         };
         vscode = {
           enable = true;

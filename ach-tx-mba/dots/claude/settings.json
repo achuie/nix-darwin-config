@@ -1,3 +1,7 @@
 {
-    "apiKeyHelper": "~/.claude/anthropic_key.sh"
+    "apiKeyHelper": "~/.claude/anthropic_key.sh",
+    "statusLine": {
+        "type": "command",
+        "command": "sh ~/.claude/statusline.sh"
+    }
 }

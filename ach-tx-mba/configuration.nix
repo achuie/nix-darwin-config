@@ -55,6 +55,7 @@
           "scripts/gwt".source = ./scripts/gwt;
 
           ".claude/settings.json".source = ./dots/claude/settings.json;
+          ".claude/statusline.sh".source = ./dots/claude/statusline.sh;
           ".claude/anthropic_key.sh".source = pkgs.writeShellScript "anthropic_key.sh" ''
             cat ${config.age.secrets.anthropic-key.path}
           '';
@@ -106,7 +107,7 @@
       "wezterm"
       "ghostty"
       "firefox"
-      "ungoogled-chromium"
+      "google-chrome"
       "slack"
       "obsidian"
     ];

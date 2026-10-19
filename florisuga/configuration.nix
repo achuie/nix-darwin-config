@@ -89,6 +89,8 @@
           code-server
           claude-code
           azure-cli
+          azure-storage-azcopy
+          bicep
           azure-functions-core-tools
           ansible
           ansible-lint
@@ -154,6 +156,8 @@
       auto-optimise-store = true;
     };
   };
+
+  nixpkgs.overlays = [ (import ../overlays/azure-cli-deployments-pin.nix) ];
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "claude-code"

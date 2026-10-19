@@ -8,6 +8,8 @@
   # Managed by determinate-nixd
   nix.enable = false;
 
+  nixpkgs.overlays = [ (import ../overlays/azure-cli-deployments-pin.nix) ];
+
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "claude-code"
     "vscode"
@@ -41,6 +43,8 @@
 
           claude-code
           azure-cli
+          azure-storage-azcopy
+          bicep
           azure-functions-core-tools
           ansible
           ansible-lint

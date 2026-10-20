@@ -135,6 +135,12 @@
     ];
   };
 
+  # Touch ID for sudo; reattach makes it work inside tmux
+  security.pam.services.sudo_local = {
+    touchIdAuth = true;
+    reattach = true;
+  };
+
   services.tailscale.enable = true;
 
   # Set Git commit hash for darwin-version.

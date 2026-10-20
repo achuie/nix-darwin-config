@@ -16,6 +16,20 @@
     "vscode-extension-ms-vscode-remote-vscode-remote-extensionpack"
   ];
 
+  programs.zsh = {
+    # achuie's zshrc runs its own (cached) compinit; a second global one with a different fpath
+    # invalidates the dump and rebuilds it on every shell start.
+    enableGlobalCompInit = false;
+    enableBashCompletion = false;
+    # Keep completion for root and other users without their own zshrc.
+    interactiveShellInit = ''
+      if [[ ! -e ''${ZDOTDIR:-$HOME}/.zshrc ]]; then
+        autoload -U compinit && compinit
+        autoload -U bashcompinit && bashcompinit
+      fi
+    '';
+  };
+
   users.users.achuie = {
     name = "achuie";
     home = "/Users/achuie";
@@ -65,6 +79,10 @@
           '';
         };
       };
+      # zshrc only re-checks the completion dump daily; drop it so new completions show up after a switch.
+      home.activation.clearZcompdump = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        run rm -f "$HOME/.zsh/.zcompdump"
+      '';
       xdg.configFile = {
         "tmux/tmux.conf".source = ./dots/tmux/tmux.conf;
         # "wezterm/wezterm.lua".source = ./dots/wezterm/wezterm.lua;

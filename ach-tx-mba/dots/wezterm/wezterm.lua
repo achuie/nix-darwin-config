@@ -547,6 +547,10 @@ local config = {
 
     -- Workspaces
     { key = 's',     mods = 'LEADER',  action = wact.ShowLauncherArgs { flags = 'WORKSPACES' } },
+
+    -- Jump between shell prompts; needs the shell to emit OSC 133 marks
+    { key = 'UpArrow',   mods = 'SHIFT|CTRL', action = wact.ScrollToPrompt(-1) },
+    { key = 'DownArrow', mods = 'SHIFT|CTRL', action = wact.ScrollToPrompt(1) },
   },
 
   key_tables = {
@@ -569,6 +573,10 @@ local config = {
       -- Page movement
       { key = 'b', mods = 'CTRL',       action = wact.CopyMode('PageUp') },
       { key = 'f', mods = 'CTRL',       action = wact.CopyMode('PageDown') },
+
+      -- Semantic zone (prompt/input/output) movement
+      { key = '[', mods = 'NONE',       action = wact.CopyMode('MoveBackwardSemanticZone') },
+      { key = ']', mods = 'NONE',       action = wact.CopyMode('MoveForwardSemanticZone') },
 
       -- Selection
       { key = 'v', mods = 'NONE',       action = wact.CopyMode { SetSelectionMode = 'Cell' } },
@@ -617,6 +625,12 @@ local config = {
       event = { Up = { streak = 1, button = 'Left' } },
       mods = 'NONE',
       action = wact.CompleteSelectionOrOpenLinkAtMouseCursor("PrimarySelection"),
+    },
+    -- Select whole prompt/input/output zone
+    {
+      event = { Down = { streak = 3, button = 'Left' } },
+      mods = 'NONE',
+      action = wact.SelectTextAtMouseCursor('SemanticZone'),
     },
   },
 }

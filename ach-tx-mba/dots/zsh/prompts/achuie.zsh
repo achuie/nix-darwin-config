@@ -12,6 +12,9 @@ function set_prompt {
         PS1='%F{cyan}%B(venv)%b%f '$PS1
     fi
 
+    # OSC 133 end of prompt, start of input
+    PS1+=$'%{\e]133;B\e\\%}'
+
     RPS1='%F{red}%(?..(%?%))%f'
 }
 

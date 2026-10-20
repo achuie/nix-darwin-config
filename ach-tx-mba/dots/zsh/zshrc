@@ -43,6 +43,31 @@ autoload -Uz promptinit
 promptinit
 prompt achuie
 
+## Semantic prompt (OSC 133)
+# Marks prompt and command output so tmux/wezterm can jump between prompts and select output.
+# Ghostty's own shell integration already emits these outside of tmux.
+if [[ $TERM_PROGRAM != ghostty ]]; then
+    typeset -g _osc133_cmd_ran=0
+
+    function _osc133_precmd {
+        local ret=$?
+        if (( _osc133_cmd_ran )); then
+            print -rn -- $'\e]133;D;'"$ret"$'\e\\'
+            _osc133_cmd_ran=0
+        fi
+        print -rn -- $'\e]133;A\e\\'
+    }
+
+    function _osc133_preexec {
+        print -rn -- $'\e]133;C\e\\'
+        _osc133_cmd_ran=1
+    }
+
+    # First, so $? is still the command's exit status
+    precmd_functions=(_osc133_precmd $precmd_functions)
+    preexec_functions+=(_osc133_preexec)
+fi
+
 ## Aliases
 alias ls='ls --color=auto'
 alias git-log='git log --graph --pretty='\''%Cred%h%Creset -%C(auto)%d%Creset %Cgreen(%cr) %C(bold blue)<%an>%Creset %<(50,trunc)%s'\'' --all'

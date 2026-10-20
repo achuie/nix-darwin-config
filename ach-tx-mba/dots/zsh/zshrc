@@ -30,9 +30,6 @@ export FPATH
 ## uv
 source $HOME/.local/bin/env
 
-## git worktree helper
-[ -f $HOME/scripts/gwt ] && source <(gwt shellenv)
-
 ## Environment
 # For ICC color correction with swaywm
 export WLR_RENDERER=vulkan
@@ -105,6 +102,10 @@ zstyle ':completion:*' max-errors 1 numeric
 zstyle ':completion:*' prompt 'errors: %e'
 zstyle ':completion:*' menu select
 zstyle :compinstall filename "$ZDOTDIR/.zshrc"
+
+## git worktree helper
+# After compinit; shellenv calls compdef
+[ -f $HOME/scripts/gwt ] && source <(gwt shellenv)
 
 ## Keys
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search

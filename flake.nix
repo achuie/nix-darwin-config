@@ -3,8 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    # For ragenix, see https://github.com/yaxitech/ragenix/issues/159
-    nixpkgs-2411.url = "github:nixos/nixpkgs/nixos-24.11";
 
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
@@ -28,8 +26,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix = {
-      url = "github:yaxitech/ragenix";
-      inputs.nixpkgs.follows = "nixpkgs-2411";
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

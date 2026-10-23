@@ -3,5 +3,10 @@
     "statusLine": {
         "type": "command",
         "command": "sh ~/.claude/statusline.sh"
+    },
+    "permissions": {
+        "allow": [
+            "Read(~/.claude/**)"
+        ]
     }
 }

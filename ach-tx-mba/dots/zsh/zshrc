@@ -87,15 +87,8 @@ zle -N edit-command-line
 bindkey "^e" edit-command-line
 
 ## Completion
-# Full check and security audit only when the dump is missing or older than a day
 autoload -Uz compinit
-_zcompdump=${ZDOTDIR:-$HOME}/.zcompdump
-if [[ ! -e $_zcompdump || -n $_zcompdump(#qN.mh+24) ]]; then
-    compinit -d $_zcompdump
-else
-    compinit -C -d $_zcompdump
-fi
-unset _zcompdump
+compinit -d ${ZDOTDIR:-$HOME}/.zcompdump
 
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' max-errors 1 numeric

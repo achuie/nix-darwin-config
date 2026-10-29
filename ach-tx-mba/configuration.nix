@@ -79,7 +79,7 @@
           '';
         };
       };
-      # zshrc only re-checks the completion dump daily; drop it so new completions show up after a switch.
+      # compinit only rebuilds the dump when completion file count changes; drop it on switch to catch swaps.
       home.activation.clearZcompdump = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         run rm -f "$HOME/.zsh/.zcompdump"
       '';

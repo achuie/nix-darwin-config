@@ -28,7 +28,8 @@ export FPATH
 # emulate sh -c '. /home/achuie/.nix-profile/etc/profile.d/nix.sh'
 
 ## uv
-source $HOME/.local/bin/env
+# Only exists with the standalone uv installer; florisuga gets uv from nix.
+[ -f $HOME/.local/bin/env ] && source $HOME/.local/bin/env
 
 ## Environment
 # For ICC color correction with swaywm

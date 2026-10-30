@@ -61,6 +61,23 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
+  programs.zsh = {
+    enable = true;
+    # achuie's zshrc runs its own (cached) compinit; a second global one with a different fpath
+    # invalidates the dump and rebuilds it on every shell start.
+    enableGlobalCompInit = false;
+    enableBashCompletion = false;
+    # Keep completion for root and other users without their own zshrc.
+    interactiveShellInit = ''
+      if [[ ! -e ''${ZDOTDIR:-$HOME}/.zshrc ]]; then
+        autoload -U compinit && compinit
+        autoload -U bashcompinit && bashcompinit
+      fi
+    '';
+    # achuie's zshrc sets its own prompt.
+    promptInit = "";
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.achuie = {
     isNormalUser = true;
@@ -68,7 +85,7 @@
     packages = with pkgs; [
       tree
     ];
-    shell = pkgs.bashInteractive;
+    shell = pkgs.zsh;
   };
   home-manager = {
     useGlobalPkgs = true;
@@ -96,6 +113,10 @@
           ansible-lint
         ];
         file = {
+          ".zsh/.zshrc".source = ../ach-tx-mba/dots/zsh/zshrc;
+          ".zsh/prompts".source = ../ach-tx-mba/dots/zsh/prompts;
+          ".zsh/functions/prompt_achuie_setup".source = ../ach-tx-mba/dots/zsh/prompts/achuie.zsh;
+
           "scripts/gwt".source = ../ach-tx-mba/scripts/gwt;
 
           ".claude/settings.json".source = ../ach-tx-mba/dots/claude/settings.json;
@@ -109,11 +130,11 @@
           EDITOR = "vim";
           VISUAL = "vim";
         };
-        shellAliases = {
-          git-log = "git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %Cgreen(%cr) %C(bold blue)<%an>%Creset %<(50,trunc)%s' --all";
-          git-vlog = "git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %Cgreen%aD%Creset%n          %C(bold blue)<%an>%Creset %<(80,trunc)%s' --all";
-        };
       };
+      # compinit only rebuilds the dump when completion file count changes; drop it on switch to catch swaps.
+      home.activation.clearZcompdump = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        run rm -f "$HOME/.zsh/.zcompdump"
+      '';
       xdg.configFile = {
         "tmux/tmux.conf".source = ../ach-tx-mba/dots/tmux/tmux.conf;
         # "wezterm/wezterm.lua".source = ./dots/wezterm/wezterm.lua;
@@ -121,16 +142,9 @@
       };
       programs = {
         home-manager.enable = true;
-        bash = {
+        zsh = {
           enable = true;
-          initExtra = builtins.readFile ./dots/bash/bashrc;
-        };
-        readline = {
-          enable = true;
-          bindings = {
-            "\\e[A" = "history-search-backward";
-            "\\e[B" = "history-search-forward";
-          };
+          envExtra = builtins.readFile ../ach-tx-mba/dots/zsh/zshenv;
         };
         vscode = {
           enable = true;
